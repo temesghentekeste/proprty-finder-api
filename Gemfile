@@ -39,3 +39,5 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'rubocop', '>= 1.0', '< 2.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+gem 'bcrypt', '~> 3.1'
