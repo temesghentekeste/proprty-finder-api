@@ -1,6 +1,7 @@
 class Api::V1::PropertiesController < ApplicationController
-  before_action :set_property, only: %i[show update]
-  before_action :check_login, only: %i[create update]
+  before_action :set_property, only: %i[show update destroy]
+  before_action :check_login, only: %i[create]
+  before_action :check_owner, only: %i[update destroy]
 
   def index
     @properties = Property.all
@@ -31,7 +32,16 @@ class Api::V1::PropertiesController < ApplicationController
     end
   end
 
+  def destroy
+    @product.destroy
+    head 204
+  end
+
   private
+
+  def check_owner
+    head :forbidden unless @product.user_id == current_user&.id
+  end
 
   def set_property
     @property = Property.find(params[:id])
