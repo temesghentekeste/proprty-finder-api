@@ -33,14 +33,14 @@ class Api::V1::PropertiesController < ApplicationController
   end
 
   def destroy
-    @product.destroy
+    @property.destroy
     head 204
   end
 
   private
 
   def check_owner
-    head :forbidden unless @product.user_id == current_user&.id
+    head :forbidden unless @property.user_id == current_user&.id
   end
 
   def set_property
