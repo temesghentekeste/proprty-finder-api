@@ -44,3 +44,5 @@ gem 'bcrypt', '~> 3.1'
 gem 'hirb'
 
 gem 'jwt', '~> 2.2'
+
+gem 'cloudinary', '~> 1.20'
