@@ -47,3 +47,5 @@ gem 'jwt', '~> 2.2'
 
 gem 'active_storage_validations'
 gem 'cloudinary', '~> 1.20'
+
+gem 'faker', '~> 2.18'
