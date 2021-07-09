@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_08_175635) do
+ActiveRecord::Schema.define(version: 2021_07_09_105814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "properties", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.decimal "monthly_price"
+    t.text "description"
+    t.boolean "is_for_rent"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_properties_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
@@ -23,4 +35,5 @@ ActiveRecord::Schema.define(version: 2021_07_08_175635) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "properties", "users"
 end
