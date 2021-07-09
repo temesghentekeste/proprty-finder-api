@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :check_login, only: [:index]
+
   def index
     users = User.all
     render json: users, status: :ok
@@ -18,5 +20,9 @@ class Api::V1::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :password)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
