@@ -17,7 +17,6 @@ class Api::V1::PropertiesController < ApplicationController
   def create
     property = current_user.properties.build(property_params)
 
-    # byebug
     if property.save
       render json: PropertySerializer.new(property).serializable_hash, status: :created
     else
