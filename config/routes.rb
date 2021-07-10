@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :create, :show]
       resources :tokens, only: [:create]
       resources :properties, only: [:index, :show, :create, :update, :destroy]
-      resources :favorites, only: [:index, :create]
+      resources :favorites, only: [:index, :create, :destroy]
     end
   end
 end
