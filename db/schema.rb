@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 2021_07_10_164537) do
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "property_id", null: false
+    t.bigint "user_id"
+    t.bigint "property_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["property_id"], name: "index_favorites_on_property_id"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2021_07_10_164537) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "favorites", "properties"
-  add_foreign_key "favorites", "users"
+  add_foreign_key "favorites", "properties", on_delete: :cascade
+  add_foreign_key "favorites", "users", on_delete: :cascade
   add_foreign_key "properties", "users"
 end
