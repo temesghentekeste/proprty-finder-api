@@ -1,16 +1,17 @@
 class Api::V1::PropertiesController < ApplicationController
   before_action :set_property, only: %i[show update destroy]
-  before_action :check_login, only: %i[create]
+  before_action :check_login, only: %i[create show]
   before_action :check_owner, only: %i[update destroy]
 
   def index
     @properties = Property.all
 
-    render json: { properties: @properties }
+    render json: PropertySerializer.new(@properties).serializable_hash
   end
 
   def show
-    render json: { property: @property }
+    options = { include: [:user] }
+    render json: PropertySerializer.new(@property, options).serializable_hash
   end
 
   def create
@@ -18,7 +19,7 @@ class Api::V1::PropertiesController < ApplicationController
 
     # byebug
     if property.save
-      render json: { property: property }, status: :created
+      render json: PropertySerializer.new(property).serializable_hash, status: :created
     else
       render json: { errors: property.errors }, status: :unprocessable_entity
     end
@@ -26,7 +27,7 @@ class Api::V1::PropertiesController < ApplicationController
 
   def update
     if @property.update(property_params)
-      render json: { property: @property }
+      render json: PropertySerializer.new(@property).serializable_hash
     else
       render json: { errors: @property.errors }, status: :unprocessable_entity
     end
