@@ -1,9 +1,15 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :set_user, only: [:show]
   before_action :check_login, only: [:index]
 
   def index
     users = User.all
     render json: UserSerializer.new(users).serializable_hash, status: :ok
+  end
+
+  def show
+    options = { include: [:properties] }
+    render json: UserSerializer.new(@user, options).serializable_hash, status: :ok
   end
 
   def create
