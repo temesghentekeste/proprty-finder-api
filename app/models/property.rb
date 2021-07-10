@@ -9,11 +9,11 @@ class Property < ApplicationRecord
   after_commit :add_default_image, on: %i[create update]
 
   def add_default_image
-    unless featured_image.attached?
-      featured_image.attach(
-        io: File.open(Rails.root.join('assets', 'images', 'no_image_available.jpeg')),
-        filename: 'no_image_available.jpg', content_type: 'image/jpg'
-      )
-    end
+    return if featured_image.attached?
+
+    featured_image.attach(
+      io: File.open(Rails.root.join('assets', 'images', 'no_image_available.jpeg')),
+      filename: 'no_image_available.jpg', content_type: 'image/jpg'
+    )
   end
 end

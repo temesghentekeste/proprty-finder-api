@@ -49,3 +49,5 @@ gem 'active_storage_validations'
 gem 'cloudinary', '~> 1.20'
 
 gem 'faker', '~> 2.18'
+
+gem 'fast_jsonapi', '~> 1.5'
