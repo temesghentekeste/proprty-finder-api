@@ -1,4 +1,5 @@
 class Property < ApplicationRecord
+  include Rails.application.routes.url_helpers
   belongs_to :user
   has_one_attached :featured_image, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -15,5 +16,9 @@ class Property < ApplicationRecord
       io: File.open(Rails.root.join('assets', 'images', 'no_image_available.jpeg')),
       filename: 'no_image_available.jpg', content_type: 'image/jpg'
     )
+  end
+
+  def get_image_url
+    url_for(self.featured_image)
   end
 end
