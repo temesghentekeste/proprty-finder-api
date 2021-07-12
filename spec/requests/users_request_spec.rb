@@ -53,6 +53,21 @@ RSpec.describe 'users', type: :request do
 
         expect(response).to have_http_status(:ok)
       end
+
+      it 'should return valid json format for request with valid token' do
+        get '/api/v1/users', headers: { Authorization:
+          JsonWebToken.encode(user_id: subject.id) }
+
+        expect(response).to have_http_status(:ok)
+
+        json_response = JSON.parse(response.body, symbolize_names: true)
+        username = json_response.dig(:data, 0, :attributes, :username)
+        expect(subject.username).to eq(username)
+
+        expected = { data: [{ id: subject.id.to_s, type: 'user', attributes: { username: subject.username },
+                              relationships: { properties: { data: [] } } }] }
+        expect(json_response).to eq(expected)
+      end
     end
 
     context 'GET api/v1/users/1' do
