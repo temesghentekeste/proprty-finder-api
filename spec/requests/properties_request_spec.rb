@@ -11,9 +11,6 @@ RSpec.describe 'properties', type: :request do
   }
 
   context 'POST api/v1/properties' do
-    before do
-      @user = FactoryBot.create(:user)
-    end
     it 'should not create property when there is no logged in user' do
       post '/api/v1/properties', params: property_params
 
@@ -80,6 +77,25 @@ RSpec.describe 'properties', type: :request do
 
       expect(name).to eq(@property.name)
       expect(featured_image_url).to eq(@property.image_url)
+    end
+  end
+
+  context 'PUT api/v1/properties/1' do
+    it 'should not update property for unauthorized user' do
+      @property = FactoryBot.create(:property)
+
+      put "/api/v1/properties/#{@property.id}"
+
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'should update property for authorized user' do
+      @property = FactoryBot.create(:property)
+
+      put "/api/v1/properties/#{@property.id}", params: property_params, headers: { Authorization:
+        JsonWebToken.encode(user_id: User.first.id) }
+
+      expect(response).to have_http_status(:ok)
     end
   end
 end
