@@ -37,5 +37,16 @@ RSpec.describe 'properties', type: :request do
       name = json_response.dig(:data, :attributes, :name)
       expect(name).to eq(Property.last.name)
     end
+
+    it 'should create a property with valid featured image' do
+      post '/api/v1/properties', params: property_params, headers: { Authorization:
+        JsonWebToken.encode(user_id: subject.id) }
+
+      expect(response).to have_http_status(:created)
+
+      json_response = JSON.parse(response.body, symbolize_names: true)
+      featured_image_url = json_response.dig(:data, :attributes, :featured_image)
+      expect(featured_image_url).to eq(Property.last.image_url)
+    end
   end
 end
