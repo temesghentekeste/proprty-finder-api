@@ -3,6 +3,6 @@ class User < ApplicationRecord
   has_many :properties, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
-  validates :username, uniqueness: true
+  validates :username, presence: true, uniqueness: true
   validates :password_digest, presence: true
 end
