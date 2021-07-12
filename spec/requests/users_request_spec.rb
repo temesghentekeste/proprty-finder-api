@@ -4,9 +4,6 @@ RSpec.describe 'users', type: :request do
   subject { FactoryBot.create(:user) }
   describe 'controller api endpoints' do
     context 'POST api/v1/users' do
-      before do
-        @user = FactoryBot.create(:user)
-      end
       it 'should create user' do
         post '/api/v1/users', params: {
           user: { username: 'temesghen', password: 'password' }
@@ -17,7 +14,7 @@ RSpec.describe 'users', type: :request do
 
       it 'should not create user with taken username' do
         post '/api/v1/users', params: {
-          user: { username: @user.username, password: 'password' }
+          user: { username: subject.username, password: 'password' }
         }
 
         expect(response).to have_http_status(:unprocessable_entity)
@@ -61,12 +58,13 @@ RSpec.describe 'users', type: :request do
         expect(response).to have_http_status(:ok)
 
         json_response = JSON.parse(response.body, symbolize_names: true)
-        username = json_response.dig(:data, 0, :attributes, :username)
-        expect(subject.username).to eq(username)
 
-        expected = { data: [{ id: subject.id.to_s, type: 'user', attributes: { username: subject.username },
-                              relationships: { properties: { data: [] } } }] }
-        expect(json_response).to eq(expected)
+        username = json_response.dig(:data, 0, :attributes, :username)
+
+        expect(username).to eq(User.first.username)
+
+        expected_size = json_response[:data].size
+        expect(expected_size).to eq(User.all.size)
       end
     end
 
