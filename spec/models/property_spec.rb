@@ -26,7 +26,7 @@ RSpec.describe Property, type: :model do
         is_for_rent: true,
         description: Faker::Lorem.sentence(word_count: 3),
         user_id: @user.id
-    )
+      )
       expect(@property.featured_image).to be_attached
     end
   end
