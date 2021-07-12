@@ -49,4 +49,13 @@ RSpec.describe 'properties', type: :request do
       expect(featured_image_url).to eq(Property.last.image_url)
     end
   end
+
+  context 'GET api/v1/properties' do
+    it 'should return all properties' do
+      get '/api/v1/properties'
+
+      expect(response).to have_http_status(:ok)
+    end
+
+  end
 end
