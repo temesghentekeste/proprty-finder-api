@@ -98,4 +98,23 @@ RSpec.describe 'properties', type: :request do
       expect(response).to have_http_status(:ok)
     end
   end
+  context 'DELETE api/v1/properties/1' do
+    it 'should not delete property if user is not unauthorized' do
+      @property = FactoryBot.create(:property)
+
+      delete "/api/v1/properties/#{@property.id}"
+
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'should delete property if user is authorized' do
+      @property = FactoryBot.create(:property)
+      property_size = Property.all.size
+      delete "/api/v1/properties/#{@property.id}", params: property_params, headers: { Authorization:
+        JsonWebToken.encode(user_id: User.first.id) }
+
+      expect(Property.all.size).to eq(property_size - 1)
+      expect(response).to have_http_status(204)
+    end
+  end
 end
