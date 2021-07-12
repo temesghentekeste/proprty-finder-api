@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'users', type: :request do
-  describe 'POST api/v1/users' do
-    context 'renders users listing view' do
+  subject { FactoryBot.create(:user) }
+  describe 'controller api endpoints' do
+    context 'POST api/v1/users' do
       before do
         @user = FactoryBot.create(:user)
       end
@@ -36,6 +37,21 @@ RSpec.describe 'users', type: :request do
         }
 
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'GET api/v1/users' do
+      it 'should forbid request with invalid token' do
+        get '/api/v1/users'
+
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'should return all users for request with valid token' do
+        get '/api/v1/users', headers: { Authorization:
+          JsonWebToken.encode(user_id: subject.id) }
+
+        expect(response).to have_http_status(:ok)
       end
     end
   end
