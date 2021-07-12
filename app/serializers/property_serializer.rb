@@ -1,6 +1,6 @@
 module FeaturedImageHelper
   def featured_image_url(property)
-    property.get_image_url
+    property.image_url
   end
 end
 
@@ -17,4 +17,3 @@ class PropertySerializer
   end
   belongs_to :user
 end
-

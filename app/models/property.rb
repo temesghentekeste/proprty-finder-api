@@ -18,7 +18,7 @@ class Property < ApplicationRecord
     )
   end
 
-  def get_image_url
-    url_for(self.featured_image)
+  def image_url
+    url_for(featured_image)
   end
 end

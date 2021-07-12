@@ -24,7 +24,6 @@ class Api::V1::PropertiesController < ApplicationController
     end
   end
 
-
   def update
     if @property.update(property_params)
       render json: PropertySerializer.new(@property).serializable_hash
