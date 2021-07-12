@@ -57,4 +57,29 @@ RSpec.describe 'properties', type: :request do
       expect(response).to have_http_status(:ok)
     end
   end
+
+  context 'GET api/v1/properties/1' do
+    it 'should return a single property' do
+      @property = FactoryBot.create(:property)
+
+      get "/api/v1/properties/#{@property.id}"
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'should return correct json data' do
+      @property = FactoryBot.create(:property)
+
+      get "/api/v1/properties/#{@property.id}"
+
+      expect(response).to have_http_status(:ok)
+      json_response = JSON.parse(response.body, symbolize_names: true)
+
+      name = json_response.dig(:data, :attributes, :name)
+      featured_image_url = json_response.dig(:data, :attributes, :featured_image)
+
+      expect(name).to eq(@property.name)
+      expect(featured_image_url).to eq(@property.image_url)
+    end
+  end
 end
