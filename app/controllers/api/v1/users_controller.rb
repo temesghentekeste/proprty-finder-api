@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show]
-  before_action :check_login, only: [:index]
+  before_action :check_login, only: %i[index show]
 
   def index
     users = User.all

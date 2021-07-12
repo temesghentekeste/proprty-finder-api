@@ -54,5 +54,20 @@ RSpec.describe 'users', type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    context 'GET api/v1/users/1' do
+      it 'should forbid request with invalid token' do
+        get "/api/v1/users/#{subject.id}"
+
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'should return user for request with valid token' do
+        get "/api/v1/users/#{subject.id}", headers: { Authorization:
+          JsonWebToken.encode(user_id: subject.id) }
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
   end
 end
