@@ -15,6 +15,7 @@ class Api::V1::PropertiesController < ApplicationController
   end
 
   def create
+    # debugger
     property = current_user.properties.build(property_params)
 
     if property.save
