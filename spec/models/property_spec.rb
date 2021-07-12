@@ -12,5 +12,9 @@ RSpec.describe Property, type: :model do
     it { should validate_presence_of :monthly_price }
     it { should validate_numericality_of :monthly_price }
 
+    describe 'associations' do
+      it { should belong_to(:user) }
+      it { should have_many(:favorites) }
+    end
   end
 end
