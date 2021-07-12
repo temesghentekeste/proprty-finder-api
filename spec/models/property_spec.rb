@@ -10,6 +10,7 @@ RSpec.describe Property, type: :model do
     it { should validate_presence_of :description }
     it { should validate_presence_of :is_for_rent }
     it { should validate_presence_of :monthly_price }
+    it { should validate_numericality_of :monthly_price }
 
   end
 end
