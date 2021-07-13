@@ -66,4 +66,32 @@ RSpec.describe 'favorites', type: :request do
                                   })
     end
   end
+
+  context 'DELETE api/v1/favorites/1' do
+    it 'should not delete property if user is not unauthorized' do
+
+      delete "/api/v1/favorites/#{Favorite.last.id}"
+
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    
+    it 'should not delete favorite if user is authenticated but not authorized' do
+        count = Favorite.all.size
+        unauthorized_user = FactoryBot.create(:user)
+        delete "/api/v1/favorites/#{@favorite.id}", headers: { Authorization:
+            JsonWebToken.encode(user_id: unauthorized_user.id) }
+            
+            expect(Favorite.all.size).to eq(count)
+            expect(response).to have_http_status(:forbidden)
+    end
+    it 'should delete favorite if user is authorized' do
+        count = Favorite.all.size
+        delete "/api/v1/favorites/#{@favorite.id}", headers: { Authorization:
+        JsonWebToken.encode(user_id: @favorite.user_id) }
+
+        expect(Favorite.all.size).to eq(count - 1)
+        expect(response).to have_http_status(204)
+    end
+    end
 end
