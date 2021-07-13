@@ -58,7 +58,6 @@ RSpec.describe 'properties', type: :request do
   context 'GET api/v1/properties/1' do
     it 'should return a single property' do
       @property = FactoryBot.create(:property)
-
       get "/api/v1/properties/#{@property.id}"
 
       expect(response).to have_http_status(:ok)
