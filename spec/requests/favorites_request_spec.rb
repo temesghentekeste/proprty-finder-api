@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'favorites', type: :request do
-  @user = FactoryBot.create(:user)
-  @property = FactoryBot.create(:property)
-  @favorite = FactoryBot.create(:favorite)
+  before(:all) do
+    @user = FactoryBot.create(:user)
+    @property = FactoryBot.create(:property)
+    @favorite = FactoryBot.create(:favorite)
+  end
 
   favorite_params = { property_id: Property.last.id }
   context 'GET api/v1/favorites' do
