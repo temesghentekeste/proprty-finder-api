@@ -56,3 +56,5 @@ gem 'cloudinary', '~> 1.20'
 gem 'factory_bot_rails'
 gem 'faker', '~> 2.18'
 gem 'fast_jsonapi', '~> 1.5'
+
+gem "rack-cors", "~> 1.1"
