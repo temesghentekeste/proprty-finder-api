@@ -1,6 +1,9 @@
 module Authenticable
   def check_login
     head :forbidden unless current_user
+  rescue StandardError
+    render json: { error: 'Please log in before you proceed with that action!' },
+           status: :forbidden
   end
 
   def current_user
