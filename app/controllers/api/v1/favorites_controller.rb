@@ -28,6 +28,7 @@ class Api::V1::FavoritesController < ApplicationController
   end
 
   private
+
   def set_favorite
     @favorite = Favorite.find(params[:id])
   end
