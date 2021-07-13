@@ -28,8 +28,6 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails'
-  gem 'faker', '~> 2.18'
   gem 'rspec-rails', '~> 5.0'
 end
 
@@ -55,4 +53,6 @@ gem 'jwt', '~> 2.2'
 gem 'active_storage_validations'
 gem 'cloudinary', '~> 1.20'
 
+gem 'factory_bot_rails'
+gem 'faker', '~> 2.18'
 gem 'fast_jsonapi', '~> 1.5'
