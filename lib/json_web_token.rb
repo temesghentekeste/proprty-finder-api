@@ -7,6 +7,7 @@ class JsonWebToken
   p secret_key_base
   puts "******************************"
   def self.encode(payload, exp = 24.hours.from_now)
+    byebug
     payload[:exp] = exp.to_i
     JWT.encode(payload, secret_key_base)
   end
