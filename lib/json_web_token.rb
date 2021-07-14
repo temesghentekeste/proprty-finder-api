@@ -2,7 +2,7 @@ class JsonWebToken
   SECRET_KEY = Rails.application.secrets.secret_key_base || ENV['SECRET_KEY_BASE']
   @secret_key_base = SECRET_KEY[0]
   puts "******************************"
-  p SECRET_@EY
+  p SECRET_KEY
   puts "******************************"
   p @secret_key_base
   puts "******************************"
