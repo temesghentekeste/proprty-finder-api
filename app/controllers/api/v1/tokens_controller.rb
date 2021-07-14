@@ -2,9 +2,6 @@ class Api::V1::TokensController < ApplicationController
   def create
     @user = User.find_by_username(user_params[:username])
     if @user&.authenticate(user_params[:password])
-      puts "**********************************************"
-      puts "Authenticated"
-      puts "**********************************************"
       render json: {
         token: JsonWebToken.encode(user_id: @user.id),
         username: @user.username
@@ -19,6 +16,5 @@ class Api::V1::TokensController < ApplicationController
   def user_params
     # params.permit(:username, :password)
     params.require(:user).permit(:username, :password)
-
   end
 end
