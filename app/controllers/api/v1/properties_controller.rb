@@ -1,6 +1,6 @@
 class Api::V1::PropertiesController < ApplicationController
   before_action :set_property, only: %i[show update destroy]
-  before_action :check_login, only: %i[create index]
+  before_action :check_login, only: %i[create index show]
   before_action :check_owner, only: %i[update destroy]
 
   def index

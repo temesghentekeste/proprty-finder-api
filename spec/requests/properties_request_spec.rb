@@ -62,17 +62,18 @@ RSpec.describe 'properties', type: :request do
   end
 
   context 'GET api/v1/properties/1' do
-    it 'should return a single property' do
+    it 'should not return any property for unauthenticated uses' do
       @property = FactoryBot.create(:property)
       get "/api/v1/properties/#{@property.id}"
 
-      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:forbidden)
     end
 
-    it 'should return correct json data' do
+    it 'should return correct json data for authenticated users' do
       @property = FactoryBot.create(:property)
 
-      get "/api/v1/properties/#{@property.id}"
+      get "/api/v1/properties/#{@property.id}", params: property_params, headers: { Authorization:
+        JsonWebToken.encode(user_id: User.first.id) }
 
       expect(response).to have_http_status(:ok)
       json_response = JSON.parse(response.body, symbolize_names: true)
