@@ -48,8 +48,14 @@ RSpec.describe 'properties', type: :request do
   end
 
   context 'GET api/v1/properties' do
-    it 'should return all properties' do
+    it 'should not return properties for unauthenticated users' do
       get '/api/v1/properties'
+
+      expect(response).to have_http_status(:forbidden)
+    end
+    it 'should return all properties for authenticated users' do
+      get '/api/v1/properties', params: property_params, headers: { Authorization:
+        JsonWebToken.encode(user_id: User.first.id) }
 
       expect(response).to have_http_status(:ok)
     end
