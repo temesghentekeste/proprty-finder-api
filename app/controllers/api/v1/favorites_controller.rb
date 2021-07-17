@@ -16,6 +16,17 @@ class Api::V1::FavoritesController < ApplicationController
   def create
     favorite = current_user.favorites.build(property_id: params[:property_id])
 
+    to_delete_favorite = Favorite.find_by(
+      user_id: current_user.id,
+      property_id: params[:property_id]
+    )
+
+    if to_delete_favorite
+      to_delete_favorite.destroy
+      head :no_content
+      return
+    end
+
     if favorite.save
       render json: { success: 'Added to your favorite list successfully!' }, status: :created
     else
