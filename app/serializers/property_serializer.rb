@@ -3,12 +3,13 @@ module PropertyHelper
     property.image_url
   end
 
-  def favorite_checker(property)
-    property.favorite?
+  def favorite_checker(property, current_user)
+    property.favorite?(current_user)
   end
 end
 
 class PropertySerializer
+  @@current_user = nil
   include FastJsonapi::ObjectSerializer
   extend PropertyHelper
 
@@ -21,7 +22,12 @@ class PropertySerializer
   end
 
   attribute :is_favorite do |property|
-    favorite_checker(property)
+    favorite_checker(property, @@current_user)
   end
+
+  def self.current_user(current_user)
+    @@current_user = current_user
+  end
+
   belongs_to :user
 end

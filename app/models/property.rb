@@ -22,7 +22,7 @@ class Property < ApplicationRecord
     url_for(featured_image)
   end
 
-  def favorite?
-    Favorite.where(user_id: user_id, property_id: id).count.positive?
+  def favorite?(current_user)
+    Favorite.where(user_id: current_user.id, property_id: id).count.positive?
   end
 end

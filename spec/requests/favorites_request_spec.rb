@@ -15,6 +15,8 @@ RSpec.describe 'favorites', type: :request do
     end
 
     it 'should get all favorites for athenticated user' do
+      PropertySerializer.current_user(User.first)
+
       get '/api/v1/favorites', headers: { Authorization: JsonWebToken.encode(user_id: User.first.id) }
       expect(response).to have_http_status(:ok)
     end
