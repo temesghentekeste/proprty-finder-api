@@ -9,7 +9,11 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     options = { include: [:properties] }
-    render json: UserSerializer.new(@user, options).serializable_hash, status: :ok
+    current_user.properties.each do |property|
+      property.current_user = current_user
+    end
+
+    render json: UserSerializer.new(current_user, options).serializable_hash, status: :ok
   end
 
   def create
