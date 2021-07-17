@@ -9,7 +9,6 @@ module PropertyHelper
 end
 
 class PropertySerializer
-  @@current_user = nil
   include FastJsonapi::ObjectSerializer
   extend PropertyHelper
 
@@ -22,11 +21,7 @@ class PropertySerializer
   end
 
   attribute :is_favorite do |property|
-    favorite_checker(property, @@current_user)
-  end
-
-  def self.current_user(current_user)
-    @@current_user = current_user
+    favorite_checker(property, property.current_user)
   end
 
   belongs_to :user

@@ -5,7 +5,9 @@ class Api::V1::PropertiesController < ApplicationController
 
   def index
     @properties = Property.all
-    PropertySerializer.current_user(current_user)
+    @properties.each do |property|
+      property.current_user = current_user
+    end
     render json: PropertySerializer.new(@properties).serializable_hash
   end
 
@@ -18,6 +20,7 @@ class Api::V1::PropertiesController < ApplicationController
     # debugger
     property = current_user.properties.build(property_params)
 
+    property.current_user = current_user
     if property.save
       render json: PropertySerializer.new(property).serializable_hash, status: :created
     else
@@ -46,6 +49,7 @@ class Api::V1::PropertiesController < ApplicationController
 
   def set_property
     @property = Property.find(params[:id])
+    @property.current_user = current_user
   end
 
   def property_params

@@ -71,7 +71,7 @@ RSpec.describe 'properties', type: :request do
 
     it 'should return correct json data for authenticated users' do
       @property = FactoryBot.create(:property)
-
+      @property.current_user = User.first
       get "/api/v1/properties/#{@property.id}", params: property_params, headers: { Authorization:
         JsonWebToken.encode(user_id: User.first.id) }
 

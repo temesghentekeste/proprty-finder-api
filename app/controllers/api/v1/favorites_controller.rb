@@ -5,6 +5,10 @@ class Api::V1::FavoritesController < ApplicationController
 
   def index
     @favorites = current_user.favorites.all
+    @favorites.each do |favorite|
+      favorite.property.current_user = current_user
+    end
+
     options = { include: [:property] }
     render json: FavoriteSerializer.new(@favorites, options).serializable_hash
   end

@@ -1,5 +1,7 @@
 class Property < ApplicationRecord
   include Rails.application.routes.url_helpers
+  attr_accessor :current_user
+
   belongs_to :user
   has_one_attached :featured_image, dependent: :destroy
   has_many :favorites, dependent: :destroy
