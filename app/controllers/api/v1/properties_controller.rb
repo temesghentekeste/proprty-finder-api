@@ -17,7 +17,6 @@ class Api::V1::PropertiesController < ApplicationController
   end
 
   def create
-    # debugger
     property = current_user.properties.build(property_params)
 
     property.current_user = current_user
