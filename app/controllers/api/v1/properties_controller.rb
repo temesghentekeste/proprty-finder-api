@@ -5,9 +5,8 @@ class Api::V1::PropertiesController < ApplicationController
 
   def index
     @properties = Property.all
-    @properties.each do |property|
-      property.current_user = current_user
-    end
+   
+    @properties = PropertiesRepresenter.new(@properties, current_user).attach_current_user
     render json: PropertySerializer.new(@properties).serializable_hash
   end
 
