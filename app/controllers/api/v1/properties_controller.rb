@@ -5,7 +5,7 @@ class Api::V1::PropertiesController < ApplicationController
 
   def index
     @properties = Property.all
-   
+
     @properties = PropertiesRepresenter.new(@properties, current_user).attach_current_user
     render json: PropertySerializer.new(@properties).serializable_hash
   end

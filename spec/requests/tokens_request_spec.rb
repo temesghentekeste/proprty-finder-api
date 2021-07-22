@@ -11,7 +11,7 @@ RSpec.describe 'properties', type: :request do
         }
       }
 
-      expect(response).to have_http_status(:unauthorized)
+      expect(response).to have_http_status(:forbidden)
     end
 
     it 'should not generate a token for unauthorized user incorrect password' do
@@ -22,7 +22,7 @@ RSpec.describe 'properties', type: :request do
         }
       }
 
-      expect(response).to have_http_status(:unauthorized)
+      expect(response).to have_http_status(:forbidden)
     end
 
     it 'should generate authenticatioin token for valid user credentials' do

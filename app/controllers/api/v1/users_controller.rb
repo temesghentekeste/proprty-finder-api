@@ -20,7 +20,11 @@ class Api::V1::UsersController < ApplicationController
     user = User.new(user_params)
 
     if user.save
-      render json: UserSerializer.new(user).serializable_hash, status: :created
+      render json: { 
+              message: 'Account created successfully! Log in to proceed', 
+              user: UserSerializer.new(user).serializable_hash
+            }, 
+              status: :created
     else
       render json: { error: 'Something went wrong, please try again!' }, status: :unprocessable_entity
     end

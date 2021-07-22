@@ -8,7 +8,7 @@ class Api::V1::TokensController < ApplicationController
         user_id: @user.id
       }, status: :created
     else
-      head :unauthorized
+      render json: { error: 'Incorrect username or password!' }, status: :forbidden
     end
   end
 
