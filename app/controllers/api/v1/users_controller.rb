@@ -26,14 +26,14 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  def dashboard
-    options = { include: [:properties] }
-    current_user.properties.each do |property|
-      property.current_user = current_user
-    end
+  # def dashboard
+  #   options = { include: [:properties] }
+  #   current_user.properties.each do |property|
+  #     property.current_user = current_user
+  #   end
 
-    render json: UserSerializer.new(current_user, options).serializable_hash, status: :ok
-  end
+  #   render json: UserSerializer.new(current_user, options).serializable_hash, status: :ok
+  # end
 
   private
 
