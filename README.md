@@ -57,8 +57,6 @@ heroku create
 heroku rename app-new-name
 git push heroku $BRANCH_NAME:main 
 ```
-If you are already in main branch no need to add $BRANCH_NAME, just use `git push heroku main`
-
 ### 🔴 Before creating and migrating your db you need to set up cloudinary add on
 
 
@@ -78,7 +76,6 @@ The API will expose the following RESTful endpoints.
 ### Local BaseUrl: {Host-URL}/api/v1
 ### Live BaseUrl: {Host-URL}/api/v1
 
-|-------------------------------|------------------------------|
 | API Endpoint                  | Functionality                |
 |-------------------------------|------------------------------|
 | POST /users                   | Signup                       |
@@ -87,17 +84,14 @@ The API will expose the following RESTful endpoints.
 | GET /users/:id                | Show a user                  |
 | DELETE /user/:id              | Delete a user                |
 | GET /dashboard                | Get user dashboard           |
-| -------------------------------------------------------------|
 | GET /properties               | List all properties          |
 | GET /properties/:id           | Show a property              |
 | POST /properties              | Add a new property           |
 | DELETE /properties/:id        | Delete a property            |
 | PUT /properties/:id           | Update a property            |
-|-------------------------------|------------------------------|
 | POST /favorites               | Add favorites property       |
 | GET /favorites                | Get user favorites properties|
 | DELETE /favorites/:id         | Delete a favorite            |
-|-------------------------------|------------------------------|
 
 
 
