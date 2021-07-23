@@ -9,9 +9,7 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     options = { include: [:properties] }
-    # current_user.properties.each do |property|
-    #   property.current_user = current_user
-    # end
+
     attach_current_user
     render json: UserSerializer.new(@current_user, options).serializable_hash, status: :ok
   end
@@ -36,15 +34,6 @@ class Api::V1::UsersController < ApplicationController
       render json: { errors: 'Try a different username!' }, status: :unprocessable_entity
     end
   end
-
-  # def dashboard
-  #   options = { include: [:properties] }
-  #   current_user.properties.each do |property|
-  #     property.current_user = current_user
-  #   end
-
-  #   render json: UserSerializer.new(current_user, options).serializable_hash, status: :ok
-  # end
 
   private
 

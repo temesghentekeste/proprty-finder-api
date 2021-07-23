@@ -25,6 +25,6 @@ class Property < ApplicationRecord
   end
 
   def favorite?(current_user)
-    Favorite.where(user_id: current_user.id, property_id: id).count.positive?
+    !Favorite.where(user_id: current_user.id, property_id: id).empty?
   end
 end
