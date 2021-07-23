@@ -19,14 +19,21 @@ class Api::V1::UsersController < ApplicationController
   def create
     user = User.new(user_params)
 
+    existing_user = User.find_by(username: user_params[:username])
+
+    if existing_user
+      render json: { errors: 'Username already exists, try diffrent username' }, status: :unprocessable_entity
+      return
+    end
+
     if user.save
-      render json: { 
-              message: 'Account created successfully! Log in to proceed', 
-              user: UserSerializer.new(user).serializable_hash
-            }, 
-              status: :created
+      render json: {
+        message: 'Account created successfully! Log in to proceed',
+        user: UserSerializer.new(user).serializable_hash
+      },
+             status: :created
     else
-      render json: { error: 'Something went wrong, please try again!' }, status: :unprocessable_entity
+      render json: { errors: 'Try a different username!' }, status: :unprocessable_entity
     end
   end
 
