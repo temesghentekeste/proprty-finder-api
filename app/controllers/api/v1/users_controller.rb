@@ -22,13 +22,13 @@ class Api::V1::UsersController < ApplicationController
     existing_user = User.find_by(username: user_params[:username])
 
     if existing_user
-      render json: { errors: 'Username already exists, try diffrent username' }, status: :unprocessable_entity
+      render json: { error: 'Username already exists, please try a diffrent username' }, status: :unprocessable_entity
       return
     end
 
     if user.save
       render json: {
-        message: 'Account created successfully! Log in to proceed',
+        message: 'Account created successfully!',
         user: UserSerializer.new(user).serializable_hash
       },
              status: :created
