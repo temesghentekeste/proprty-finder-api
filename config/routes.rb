@@ -5,7 +5,6 @@ Rails.application.routes.draw do
       resources :tokens, only: [:create]
       resources :properties, only: [:index, :show, :create, :update, :destroy]
       resources :favorites, only: [:index, :create, :destroy]
-      get '/dashboard', to: 'users#dashboard'
     end
   end
 end
